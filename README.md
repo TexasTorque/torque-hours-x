@@ -1,3 +1,3 @@
-# torque_hours_x
+# Torque Hours X
 
-A new Flutter project.
+An app written in flutter to manage Texas Torque members' hours.
