@@ -14,7 +14,9 @@ class LeaderboardScreen extends StatelessWidget {
         )
       ),
       home: const Scaffold(
-        body: Text('Leaderboard Screen')
+        body: Center(
+          child: Text('Leaderboard Screen'),
+        ),
       ),
     );
   }

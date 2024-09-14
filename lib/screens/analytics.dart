@@ -14,7 +14,9 @@ class AnalyticsScreen extends StatelessWidget {
         )
       ),
       home: const Scaffold(
-        body: Text('Analytics Screen'),
+        body: Center(
+          child: Text('Analytics Screen'),
+        ),
       ),
     );
   }

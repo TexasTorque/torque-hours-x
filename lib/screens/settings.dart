@@ -14,7 +14,9 @@ class SettingsScreen extends StatelessWidget {
         )
       ),
       home: const Scaffold(
-        body: Text('Settings Screen'),
+        body: Center(
+          child: Text('Settings Screen'),
+        ),
       ),
     );
   }
