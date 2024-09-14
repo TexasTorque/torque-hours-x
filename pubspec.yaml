@@ -1,5 +1,5 @@
 name: torque_hours_x
-description: "A new Flutter project."
+description: "An app written in flutter to manage Texas Torque members' hours."
 publish_to: 'none'
 version: 0.1.0
 
@@ -17,3 +17,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Market Deco
+      fonts:
+        - asset: assets/fonts/Market_Deco.ttf
+  assets:
+    - assets/imgs/torque_logo.png
