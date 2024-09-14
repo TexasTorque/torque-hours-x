@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:torque_hours_x/screens/analytics.dart';
+import 'package:torque_hours_x/screens/attendance.dart';
+import 'package:torque_hours_x/screens/home.dart';
+import 'package:torque_hours_x/screens/leaderboard.dart';
+import 'package:torque_hours_x/screens/settings.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  int navigationIndex = 2;
+
+  List<Widget> screens = const [
+    LeaderboardScreen(),
+    AttendanceScreen(),
+    HomeScreen(),
+    AnalyticsScreen(),
+    SettingsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +56,8 @@ class MainApp extends StatelessWidget {
             ),
           ),
         ),
-        body: const Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('test'),
-            ),
-            Text('testing again'),
-            Text('testing again'),
-            Text('testing again'),
-            Icon(Icons.backpack)
-          ],
+        body: Center(
+          child: screens[navigationIndex]
         ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
@@ -54,9 +65,19 @@ class MainApp extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(15))
           ),
           child: BottomNavigationBar(
+            showUnselectedLabels: false,
             backgroundColor: Colors.black,
             selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.grey,
+
+            currentIndex: navigationIndex,
+
+            onTap: (index) {
+              setState(() {
+                navigationIndex = index;
+                }
+              );
+            },
             
             items: const [
               BottomNavigationBarItem(
