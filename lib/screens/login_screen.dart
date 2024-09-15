@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:torque_hours_x/auth/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -67,8 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 30),
             GestureDetector(
-              onTap: () {
-                // _logIn();
+              onTap: () async {
+                await AuthService().login(
+                  email: emailController.text,
+                  password: passwordController.text,
+                  context: context,
+                );
               },
               child: Container(
                 width: double.infinity,
