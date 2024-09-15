@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "219279638903",
+    "project_id": "torque-hours-x",
+    "storage_bucket": "torque-hours-x.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219279638903:android:d89b86f76041d7f4e76172",
+        "android_client_info": {
+          "package_name": "org.texastorque.hours"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcTJukGQ_7YhHX2B6WSK4U1W-cgIC6Rao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

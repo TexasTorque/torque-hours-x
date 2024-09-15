@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:torque_hours_x/auth/login_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,9 +15,9 @@ class HomeScreen extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white)
         )
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Home Screen'),
+      home: Scaffold(
+        body: FirebaseAuth.instance.currentUser == null ? getLoginWidget() : const Center(
+          child: Text("Home Screen"),
         ),
       ),
     );
