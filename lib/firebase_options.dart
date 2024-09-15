@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '219279638903',
     projectId: 'torque-hours-x',
     storageBucket: 'torque-hours-x.appspot.com',
-    iosBundleId: 'com.example.torqueHoursx',
+    iosBundleId: 'org.texastorque.hours',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '219279638903',
     projectId: 'torque-hours-x',
     storageBucket: 'torque-hours-x.appspot.com',
-    iosBundleId: 'com.example.torqueHoursx',
+    iosBundleId: 'org.texastorque.hours',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

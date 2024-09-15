@@ -8,7 +8,7 @@
 PRODUCT_NAME = torque_hours_x
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.torqueHoursx
+PRODUCT_BUNDLE_IDENTIFIER = org.texastorque.hours
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.
