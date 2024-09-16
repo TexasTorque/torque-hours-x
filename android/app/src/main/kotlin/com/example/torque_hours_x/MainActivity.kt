@@ -1,4 +1,4 @@
-package com.example.torque_hours_x
+package org.texastorque.hours
 
 import io.flutter.embedding.android.FlutterActivity
 

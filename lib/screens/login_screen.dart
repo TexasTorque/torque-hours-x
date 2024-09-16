@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torque_hours_x/auth/auth_service.dart';
+import 'package:torque_hours_x/screens/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,91 +9,135 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  bool passwordObscured = true;
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController otpController = TextEditingController();
+
+  final phoneKey = GlobalKey<FormState>();
+  final otpKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.only(left: 50, right: 50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Login", style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(borderSide: BorderSide.none),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  hintText: "Email",
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+          toolbarHeight: 100,
+          backgroundColor: Colors.black,
+          title: Container(
+            margin: const EdgeInsets.only(left: 80, right: 80),
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 5)
             ),
-            const SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: TextFormField(
-                controller: passwordController,
-                obscureText: passwordObscured,
-                decoration: InputDecoration(
-                  border: const UnderlineInputBorder(borderSide: BorderSide.none),
-                  contentPadding: const EdgeInsets.only(left: 10, right: 50),
-                  hintText: "Password",
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        passwordObscured = !passwordObscured;
-                      });                     
-                    },
-                    child: Icon(passwordObscured == true ? Icons.visibility : Icons.visibility_off),
-                    ),
-                  suffixIconConstraints: const BoxConstraints(
-                    minWidth: 48,
-                  ),
-                ),
-              ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(image: AssetImage('assets/imgs/torque_logo.png'), width: 50),
+                Text('TORQUE HOURS', style: TextStyle(fontFamily: 'Market Deco', color: Colors.white)),
+              ],
             ),
-            const SizedBox(height: 30),
-            GestureDetector(
-              onTap: () async {
-                await AuthService().login(
-                  email: emailController.text,
-                  password: passwordController.text,
-                  context: context,
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 45,
+          ),
+        ),
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.only(left: 50, right: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 10),
+              const Text('Login', style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              Container(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                child: Form(
+                  key: phoneKey,
+                  child: TextFormField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(borderSide: BorderSide.none),
+                      contentPadding: EdgeInsets.only(left: 10, top: 3),
+                      hintText: 'Phone Number',
+                      prefixIcon: Icon(Icons.phone),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIconConstraints: BoxConstraints(
+                        minWidth: 48,
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value!.length != 10) {
+                        return 'Invalid phone number';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              GestureDetector(
+                onTap: () async {
+                  if (phoneKey.currentState!.validate()) {
+                    AuthService.sendOTP(
+                      phoneNumber: phoneController.text,
+                      onError: () {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error sending OTP', style: TextStyle(color: Colors.white),), backgroundColor: Colors.red));
+                      },
+                      onSent: () {
+                        showDialog(context: context, builder: (context) => AlertDialog(
+                          title: const Text('OTP Verification'), content: Column(
+                          children: [
+                            const Text('Enter 6 digit OTP'),
+                            const SizedBox(height: 12),
+                            Form(
+                              key: otpKey,
+                              child: TextFormField(
+                                controller: otpController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  border: UnderlineInputBorder(borderSide: BorderSide.none),
+                                  contentPadding: EdgeInsets.only(left: 10, top: 3),
+                                  hintText: 'OTP',
+                                  prefixIcon: Icon(Icons.phone),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  prefixIconConstraints: BoxConstraints(
+                                    minWidth: 48,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value!.length != 6) {
+                                    return 'Invalid OTP code';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ],
+                        )));
+                      },
+                    );
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Send OTP',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -7,7 +7,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(const MainApp());
@@ -27,27 +27,7 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white)
         )
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 100,
-          backgroundColor: Colors.black,
-          title: Container(
-            margin: const EdgeInsets.only(left: 80, right: 80),
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 5)
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(image: AssetImage('assets/imgs/torque_logo.png'), width: 50),
-                Text('TORQUE HOURS', style: TextStyle(fontFamily: 'Market Deco', color: Colors.white)),
-              ],
-            ),
-          ),
-        ),
-        body: const LoginScreen(),
-      ),
+      home: const LoginScreen(),
     );
   }
 }
